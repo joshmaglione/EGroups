@@ -1,5 +1,5 @@
 //
-//   Copyright 2022 Joshua Maglione, Mima Stanojkovski
+//   Copyright 2022 Joshua Maglione
 //
 //   Distributed under MIT License
 //

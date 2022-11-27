@@ -1,5 +1,5 @@
 //
-//   Copyright 2022 Joshua Maglione, Mima Stanojkovski
+//   Copyright 2022 Joshua Maglione
 //
 //   Distributed under MIT License
 //
@@ -154,7 +154,7 @@ __P_to_Q := function(E1, P, E2, Q, D)
     H := Homotopism([*M, M, D*], CohomotopismCategory(3));
     t1 := __Ishitsuka_elliptic_alt_map(E1, P, BaseRing(E1) : twist := false);
     t2 := __Ishitsuka_elliptic_alt_map(E2, Q, BaseRing(E2) : twist := false);
-    assert t1 @ H eq t2;
+    // assert t1 @ H eq t2;
     return H;
 end function;
 
