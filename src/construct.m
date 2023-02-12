@@ -101,5 +101,10 @@ intrinsic IsEgroup( G::GrpPC ) -> BoolElt
         print M;
         return false;
     end if;
+    A := AdjointAlgebra(t_G);
+    type := SimpleParameters(A)[1][1];
+    if not type in {"symplectic", "exchange"} then 
+        print "Not of decomposable type.";
+    end if;
     return true; 
 end intrinsic;
