@@ -114,7 +114,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="isomorphism">Isomorphism</h1>
-<p>We provide two functions dealing with isomorphisms of $E$-groups. One for deciding isomorphism between two $E$-groups, and the other for constructing a generating set for the automorphism group of such groups. In order to not overlap with existing Magma functions, functions here have the prefix <code>EG</code>.</p>
+<p>We provide two functions dealing with isomorphisms of $E$-groups. One for deciding isomorphism between two $E$-groups, and the other for constructing a generating set for the automorphism group of such groups. These algorithms are based on <a href="https://arxiv.org/abs/2212.03941">(Theorem E) Maglione&ndash;Stanojkovski</a>.</p>
 <h2 id="egautomorphismgroup">EGAutomorphismGroup</h2>
 <p><strong>Input</strong>:</p>
 <ul>
@@ -125,6 +125,8 @@
 <li><code>GrpAuto</code> $A$.</li>
 </ul>
 <p>Return $A=\mathrm{Aut}(G)$ provided $G$ is an $E$-group. </p>
+<p>As we record in <a href="https://arxiv.org/abs/2212.03941">Maglione&ndash;Stanojkovski</a>, the theoretical performance of <code>EGAutomorphismGroup</code> is $O(|G|^{1/9})$, and the actual performance can be observed in the following scatter plot of data.</p>
+<p><img alt="" src="../aut.png" /></p>
 <h2 id="egisisomorphic">EGIsIsomorphic</h2>
 <p><strong>Input</strong>:</p>
 <ul>
