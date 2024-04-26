@@ -119,14 +119,14 @@ __Normal_form := function(t, E)
     K := BaseRing(E);
     found := false;
     i := 1;
-    print Sprintf("Searching through K-rational points (%o points).", #Pts); 
+    // print Sprintf("Searching through K-rational points (%o points).", #Pts); 
     while i le #Pts and not found do
         P := Pts[i]; 
         if P[3] ne 0 then 
             J := __Ishitsuka_elliptic_rep(E, P);
             A := __Adj_module(SystemOfForms(s), J); 
             if Dimension(A) gt 0 then 
-                print "\tFound :", P;
+                // print "\tFound :", P;
                 assert Dimension(A) eq 1;
                 X, Y := __vector_to_matrix(A.1, 3, 3);
                 assert IsInvertible(X) and IsInvertible(Y);
@@ -211,29 +211,29 @@ __ETensor_iso := function(s_G, s_H)
     // Get the tensors into Weierstrass form.
     hmtp_G_W, E_G := __Etensor_Weierstrass(s_G);
     hmtp_H_W, E_H := __Etensor_Weierstrass(s_H);
-    print E_G;
-    print E_H; 
+    // print E_G;
+    // print E_H; 
     // check, phi := IsIsomorphic(E_G, E_H);
     // H_iso := __Outside_action(s_G, Transpose(Matrix(phi)));
     t1 := s_G @ hmtp_G_W;
     t2 := s_H @ hmtp_H_W; //@ H_iso;
-    print "Working with :", E_G;
+    // print "Working with :", E_G;
     
     // Isotropically decompose the tensors.
     X1, Atype1 := __isotropical_decomposition(t1);
     X2, Atype2 := __isotropical_decomposition(t2);
     if Atype1 ne Atype2 then 
-        print "Adjoint algebras are not isomorphic.";
+        // print "Adjoint algebras are not isomorphic.";
         return []; 
     end if;
     if Atype1 eq "U" then 
-        print "This sub-class of E-groups not implemented."; 
+        // print "This sub-class of E-groups not implemented."; 
         return [];
     end if;
     if Atype1 eq "S" then 
-        print "Adjoints of symplectic type.";
+        // print "Adjoints of symplectic type.";
     else 
-        print "Adjoints of exchange type.";
+        // print "Adjoints of exchange type.";
     end if;
 
     // Write the tensors in normal form, using J_{E, P}. 
@@ -243,7 +243,7 @@ __ETensor_iso := function(s_G, s_H)
     // Get a suitable (Galois element, isomorphism) pair. 
     Gal_Aut := __Galois_elts(E_G, P1, E_H, P2 : just_one:=true);
     if #Gal_Aut eq 0 then 
-        print "There is no suitable (Galois element, isomorphism) pair between marked elliptic curves.";
+        // print "There is no suitable (Galois element, isomorphism) pair between marked elliptic curves.";
         return [];
     end if; 
     alpha := Integers()!(Gal_Aut[1][1]);
@@ -281,18 +281,21 @@ end function;
 intrinsic EGIsIsomorphic(G::GrpPC, H::GrpPC) -> BoolElt, Map 
 {Decide if the two E-groups G and H are isomorphic, and if so return an isomorphism.}
     if #G ne #H then 
-        print "Groups have different order.";
+        // print "Groups have different order.";
         return false, _; 
     end if;
     Gmaps, Ghmtp := __Extract_tensor(G);
     Hmaps, Hhmtp := __Extract_tensor(H);
     require Type(Hmaps) ne BoolElt or Type(Gmaps) ne BoolElt : "Both groups are not E-groups.";
     if Type(Hmaps) eq BoolElt or Type(Gmaps) eq BoolElt then 
-        print "One group is an E-group, but the other is not.";
+        // print "One group is an E-group, but the other is not.";
         return false, _;  
     end if;
     s_G := Codomain(Ghmtp);
     s_H := Codomain(Hhmtp);
+    if not IsPrime(#BaseRing(s_G)) then 
+        print "There is a bug with proper field extensions. Sometimes non-isomorphism is concluded when the groups really are isomorphic. A fix is forthcoming.";
+    end if;
     dat := __ETensor_iso(s_G, s_H);
     if #dat eq 0 then 
         return false, _;

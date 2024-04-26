@@ -82,7 +82,7 @@ intrinsic RandomEgroup(K::FldFin : twist := true) -> GrpPC
     return H; 
 end intrinsic;
 
-intrinsic Egroup(E::CrvEll, P::Pt : twist := true) -> GrpPC 
+intrinsic Egroup(E::CrvEll, P::Pt : twist := false) -> GrpPC 
 {Given an elliptic curve E over a finite field K, and a point P on E(K), return the E-group associated with these data.}
     K := BaseRing(E);
     require Type(K) eq FldFin : "Base field must be finite."; 

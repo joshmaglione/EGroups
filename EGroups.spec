@@ -1,6 +1,9 @@
 {
-    aut.m
-    construct.m
-    iso.m
-    util.m
+    src
+    {
+        aut.m
+        construct.m
+        iso.m
+        util.m
+    }
 }
